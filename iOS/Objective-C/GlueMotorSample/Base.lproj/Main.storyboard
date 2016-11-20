@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.0015" minValue="0.001" maxValue="0.002" translatesAutoresizingMaskIntoConstraints="NO" id="01g-Q8-hQS">
+                                <rect key="frame" x="14" y="188" width="347" height="31"/>
+                                <connections>
+                                    <action selector="servo0SliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="goB-O6-r9M"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.0015" minValue="0.001" maxValue="0.002" translatesAutoresizingMaskIntoConstraints="NO" id="f1S-cf-b1B">
+                                <rect key="frame" x="14" y="318" width="347" height="31"/>
+                                <connections>
+                                    <action selector="servo1SliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="po6-2C-8dk"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Servo 0: 1.500ms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haX-Wy-3gH">
+                                <rect key="frame" x="16" y="159" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Servo 1: 1.500ms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pLY-Xz-T4b">
+                                <rect key="frame" x="16" y="289" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="b6Y-xp-IKk">
+                                <rect key="frame" x="310" y="279" width="51" height="31"/>
+                                <connections>
+                                    <action selector="servo1SwitchValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="dhW-K6-0Wn"/>
+                                </connections>
+                            </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xpt-bf-UML">
+                                <rect key="frame" x="310" y="149" width="51" height="31"/>
+                                <connections>
+                                    <action selector="servo0SwitchValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Wtp-dK-cMc"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="haX-Wy-3gH" firstAttribute="trailing" secondItem="01g-Q8-hQS" secondAttribute="trailing" id="0zu-a9-K0O"/>
+                            <constraint firstItem="01g-Q8-hQS" firstAttribute="top" secondItem="haX-Wy-3gH" secondAttribute="bottom" constant="8" id="4ky-cb-Ol8"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="f1S-cf-b1B" secondAttribute="leading" id="5Su-FE-eNi"/>
+                            <constraint firstItem="f1S-cf-b1B" firstAttribute="top" secondItem="b6Y-xp-IKk" secondAttribute="bottom" constant="8" id="8L5-mz-pG4"/>
+                            <constraint firstItem="01g-Q8-hQS" firstAttribute="top" secondItem="xpt-bf-UML" secondAttribute="bottom" constant="8" id="ARm-CY-xT6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="b6Y-xp-IKk" secondAttribute="trailing" id="DfY-qc-pGt"/>
+                            <constraint firstItem="haX-Wy-3gH" firstAttribute="leading" secondItem="01g-Q8-hQS" secondAttribute="leading" id="FXQ-ad-bls"/>
+                            <constraint firstItem="pLY-Xz-T4b" firstAttribute="trailing" secondItem="f1S-cf-b1B" secondAttribute="trailing" id="IuA-X2-lSG"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="01g-Q8-hQS" secondAttribute="leading" id="Jl3-Ao-4AR"/>
+                            <constraint firstItem="f1S-cf-b1B" firstAttribute="top" secondItem="pLY-Xz-T4b" secondAttribute="bottom" constant="8" id="Ueh-iK-QbE"/>
+                            <constraint firstItem="pLY-Xz-T4b" firstAttribute="leading" secondItem="f1S-cf-b1B" secondAttribute="leading" id="Wvx-pM-v7Z"/>
+                            <constraint firstItem="f1S-cf-b1B" firstAttribute="top" secondItem="01g-Q8-hQS" secondAttribute="bottom" constant="100" id="YrY-IF-vna"/>
+                            <constraint firstItem="f1S-cf-b1B" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="jcr-MX-2hh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="f1S-cf-b1B" secondAttribute="trailing" id="mxk-l8-YRE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xpt-bf-UML" secondAttribute="trailing" id="thg-yz-G3f"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="01g-Q8-hQS" secondAttribute="trailing" id="u8u-DK-OK1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="servo0Label" destination="haX-Wy-3gH" id="3yU-fV-EMx"/>
+                        <outlet property="servo0Slider" destination="01g-Q8-hQS" id="mMW-rs-fYy"/>
+                        <outlet property="servo0Switch" destination="xpt-bf-UML" id="lDc-zJ-x64"/>
+                        <outlet property="servo1Label" destination="pLY-Xz-T4b" id="QLl-SG-QSU"/>
+                        <outlet property="servo1Slider" destination="f1S-cf-b1B" id="yXn-dP-t16"/>
+                        <outlet property="servo1Switch" destination="b6Y-xp-IKk" id="dzF-d5-HDY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
+        </scene>
+    </scenes>
+</document>
