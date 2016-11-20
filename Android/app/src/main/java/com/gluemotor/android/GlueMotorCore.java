@@ -16,8 +16,8 @@ import android.media.AudioTrack;
 import android.util.Log;
 
 public class GlueMotorCore {
-    public boolean mLPwmPolarityNegative = false;
-    public boolean mRPwmPolarityNegative = false;
+    public volatile boolean mServo0PwmPolarityNegative = false;
+    public volatile boolean mServo1PwmPolarityNegative = false;
 
     private static final short sSupportedServoCount = 2;
     private static final short sMinValue = -32767;
@@ -75,37 +75,60 @@ public class GlueMotorCore {
 
                     short lMinValue = sMinValue;
                     short lMaxValue = sMaxValue;
-                    if (mLPwmPolarityNegative) {
+                    if (mServo0PwmPolarityNegative) {
                         lMinValue = sMaxValue;
                         lMaxValue = sMinValue;
                     }
                     short rMinValue = sMinValue;
                     short rMaxValue = sMaxValue;
-                    if (mRPwmPolarityNegative) {
+                    if (mServo1PwmPolarityNegative) {
                         rMinValue = sMaxValue;
                         rMaxValue = sMinValue;
                     }
 
-                    int widthL = Math.round(pulseWidth[0] * 44100.0f);
-                    int widthR = Math.round(pulseWidth[1] * 44100.0f);
+                    //
+                    // Thank you for reading my dirty source code. You are now reaching the GlueMotor's core part.
+                    // Rest of the code are pretty obvious, but the next block is only the part that may be considered as "invention",
+                    // that I have came up with when I was thinking about how to improve the PWM resolution, and here is how I have solved!
+                    // Just in case if you feel something from this idea and want to poke me: email:support@gluemotor.com, twitter:@gluemotor
+                    //
+                    double widthLd = (double) pulseWidth[0] * 44100.0;
+                    double widthRd = (double) pulseWidth[1] * 44100.0;
+                    int widthL = (int) Math.floor(widthLd);
+                    int widthR = (int) Math.floor(widthRd);
+                    short fallEdgeL = (short) ((double) lMinValue + ((double) lMaxValue - (double) lMinValue) * (widthLd - (double) widthL));
+                    short fallEdgeR = (short) ((double) rMinValue + ((double) rMaxValue - (double) rMinValue) * (widthRd - (double) widthR));
 
                     if (widthL > sAudioBufferSize)
                         widthL = sAudioBufferSize;
                     if (widthR > sAudioBufferSize)
                         widthR = sAudioBufferSize;
+
                     int i;
+                    // L channel
                     for (i = 0; i < widthL; i++) {
                         audioBuffer[0 + i * 2] = lMaxValue;
+                    }
+                    if (i < sAudioBufferSize) {
+                        audioBuffer[0 + i * 2] = fallEdgeL;
+                        i++;
                     }
                     for (; i < sAudioBufferSize; i++) {
                         audioBuffer[0 + i * 2] = lMinValue;
                     }
+
+                    // R channel
                     for (i = 0; i < widthR; i++) {
                         audioBuffer[1 + i * 2] = rMaxValue;
+                    }
+                    if (i < sAudioBufferSize) {
+                        audioBuffer[1 + i * 2] = fallEdgeR;
+                        i++;
                     }
                     for (; i < sAudioBufferSize; i++) {
                         audioBuffer[1 + i * 2] = rMinValue;
                     }
+
                     track.write(audioBuffer, 0, sAudioBufferSize * 2);
                     if (track.getPlayState() != AudioTrack.PLAYSTATE_PLAYING) {
                         track.play();

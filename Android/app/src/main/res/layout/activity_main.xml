@@ -19,8 +19,8 @@
         android:id="@+id/seekBar1"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:max="1000"
-        android:progress="500" />
+        android:max="10000"
+        android:progress="5000" />
 
     <TextView
         android:text="Servo 1: OFF"
@@ -41,8 +41,8 @@
         android:id="@+id/seekBar0"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:progress="500"
-        android:max="1000" />
+        android:progress="5000"
+        android:max="10000" />
 
     <TextView
         android:text="Servo 0: OFF"

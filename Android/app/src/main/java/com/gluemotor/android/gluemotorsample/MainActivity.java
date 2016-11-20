@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         SeekBar.OnSeekBarChangeListener seekBarChangedListener = new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                float pulseWidth = (1000 + progress) * 0.000001f;
+                float pulseWidth = (10000 + progress) * 0.0000001f;
                 if (seekBar == mServo0SeekBar) {
                     mServo0PulseWidth = pulseWidth;
                     updatePulseWidth();
