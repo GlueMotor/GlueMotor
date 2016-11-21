@@ -10,7 +10,7 @@ Currently this project supports 3 different platforms:
   - Objective-C
   - Swift (will be published later, maybe, probably, any demands??)
 - JavaScript
-  - JavaScript stand alone code (almost there, will be published soon)
+  - JavaScript stand alone code
   - MOONBlock™ hack.js code (<a href="http://www.moonblock.jp/docs/">"MOONBlock"</a> is a trademark of Ubiquitous Entertainment Inc.)
 
 ## How to build the sample projects
