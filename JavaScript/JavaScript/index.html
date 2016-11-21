@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>GlueMotor Sample</title>
+		<script src="GlueMotorCore.js">
+		</script>
+		<script>
+			window.servo0PWMOn = false;
+			window.servo0PulseWidth = 0.0015;
+			window.servo1PWMOn = false;
+			window.servo1PulseWidth = 0.0015;
+			function updateLabels() {
+				var value = (window.servo0PulseWidth * 1000).toFixed(3) + "ms";
+				if (!window.servo0PWMOn) {
+					value = "OFF";
+				}
+				document.getElementById("servo0").innerHTML = "Servo 0 (L): " + value;
+				
+				value = (window.servo1PulseWidth * 1000).toFixed(3) + "ms";
+				if (!window.servo1PWMOn) {
+					value = "OFF";
+				}
+				document.getElementById("servo1").innerHTML = "Servo 1 (R): " + value;
+			}
+			function updateServos() {
+				var pulseWidth = window.servo0PulseWidth;
+				if (!window.servo0PWMOn) {
+					pulseWidth = 0;
+				}
+				glueMotorCore.setPulseWidth(pulseWidth, 0);
+				
+				pulseWidth = window.servo1PulseWidth;
+				if (!window.servo1PWMOn) {
+					pulseWidth = 0;
+				}
+				glueMotorCore.setPulseWidth(pulseWidth, 1);
+				
+				updateLabels();
+			}
+			function setPWMOn(pwmOn, servoIndex) {
+				if (servoIndex == 0) {
+					window.servo0PWMOn = pwmOn;
+				}
+				if (servoIndex == 1) {
+					window.servo1PWMOn = pwmOn;
+				}
+				updateServos();
+			}
+			function setPulseWidth(rangeValue, servoIndex) {
+				var pulseWidth = rangeValue / 1000000 + 0.001
+				if (servoIndex == 0) {
+					window.servo0PulseWidth = pulseWidth;
+				}
+				if (servoIndex == 1) {
+					window.servo1PulseWidth = pulseWidth;
+				}
+				updateServos();
+			}
+		</script>
+	</head>
+	<body>
+		<input type="button" value="start" onclick="glueMotorCore.enable(); updateServos()"/>
+		<input type="button" value="stop" onclick="glueMotorCore.disable()"/>
+		
+		<p>
+			<div id="servo0">Servo 0 (L): OFF</div>
+			<input type="radio" name="servo0OnOff" value="on" onclick="setPWMOn(true, 0)"/>ON 
+			<input type="radio" name="servo0OnOff" value="off" onclick="setPWMOn(false, 0)" checked/>OFF
+		</p>
+		<input type="range" min="0" max="1000" step="1" oninput="setPulseWidth(this.value, 0)"/>
+		
+		<p>
+			<div id="servo1">Servo 1 (R): OFF</div>
+			<input type="radio" name="servo1OnOff" value="on" onclick="setPWMOn(true, 1)"/>ON 
+			<input type="radio" name="servo1OnOff" value="off" onclick="setPWMOn(false, 1)" checked/>OFF
+		</p>
+		<input type="range" min="0" max="1000" step="1" oninput="setPulseWidth(this.value, 1)"/>
+	</body>
+</html>
