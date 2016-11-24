@@ -6,8 +6,10 @@
 		</script>
 		<script>
 			window.servo0PWMOn = false;
+			window.servo0PulsePolarityNegative = false;
 			window.servo0PulseWidth = 0.0015;
 			window.servo1PWMOn = false;
+			window.servo1PulsePolarityNegative = false;
 			window.servo1PulseWidth = 0.0015;
 			function updateLabels() {
 				var value = (window.servo0PulseWidth * 1000).toFixed(3) + "ms";
@@ -35,6 +37,9 @@
 				}
 				glueMotorCore.setPulseWidth(pulseWidth, 1);
 				
+				glueMotorCore.setPulsePolarityNegative(window.servo0PulsePolarityNegative, 0);
+				glueMotorCore.setPulsePolarityNegative(window.servo1PulsePolarityNegative, 1);
+				
 				updateLabels();
 			}
 			function setPWMOn(pwmOn, servoIndex) {
@@ -43,6 +48,15 @@
 				}
 				if (servoIndex == 1) {
 					window.servo1PWMOn = pwmOn;
+				}
+				updateServos();
+			}
+			function setPulsePolarityNegative(polarityNegative, servoIndex) {
+				if (servoIndex == 0) {
+					window.servo0PulsePolarityNegative = polarityNegative
+				}
+				if (servoIndex == 1) {
+					window.servo1PulsePolarityNegative = polarityNegative
 				}
 				updateServos();
 			}
@@ -59,21 +73,32 @@
 		</script>
 	</head>
 	<body>
+		<h2>Don't forget to turn the audio volume maximum (and turn it back after use)</h2>
 		<input type="button" value="start" onclick="glueMotorCore.enable(); updateServos()"/>
 		<input type="button" value="stop" onclick="glueMotorCore.disable()"/>
 		
 		<p>
 			<div id="servo0">Servo 0 (L): OFF</div>
+			Pulse:
 			<input type="radio" name="servo0OnOff" value="on" onclick="setPWMOn(true, 0)"/>ON 
 			<input type="radio" name="servo0OnOff" value="off" onclick="setPWMOn(false, 0)" checked/>OFF
+			, Polarity:
+			<input type="radio" name="servo0Polarity" value="positive" onclick="setPulsePolarityNegative(false, 0)" checked/>Positive 
+			<input type="radio" name="servo0Polarity" value="negative" onclick="setPulsePolarityNegative(true, 0)"/>Negative
 		</p>
 		<input type="range" min="0" max="1000" step="1" oninput="setPulseWidth(this.value, 0)"/>
 		
 		<p>
 			<div id="servo1">Servo 1 (R): OFF</div>
+			Pulse:
 			<input type="radio" name="servo1OnOff" value="on" onclick="setPWMOn(true, 1)"/>ON 
 			<input type="radio" name="servo1OnOff" value="off" onclick="setPWMOn(false, 1)" checked/>OFF
+			, Polarity:
+			<input type="radio" name="servo1Polarity" value="positive" onclick="setPulsePolarityNegative(false, 1)" checked/>Positive 
+			<input type="radio" name="servo1Polarity" value="negative" onclick="setPulsePolarityNegative(true, 1)"/>Negative
 		</p>
 		<input type="range" min="0" max="1000" step="1" oninput="setPulseWidth(this.value, 1)"/>
+		<p/>
+		<footer><a href="https://github.com/GlueMotor/GlueMotor">https://github.com/GlueMotor/GlueMotor</a></footer>
 	</body>
 </html>
